@@ -15,8 +15,7 @@ def detect_and_crop_face(img_path, target_size=(299, 299)):
     img_rgb = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
     detections = detector.detect_faces(img_rgb)
     
-    if len(detections) == 0:
-        # If no face is detected, return None
+    if (len(detections) == 0):
         return None
 
     # Extract the first detected face
@@ -28,7 +27,7 @@ def detect_and_crop_face(img_path, target_size=(299, 299)):
     
     return face_resized
 
-# Custom data generator that incorporates MTCNN for face detection
+# Custom data generator that incorporates MTCNN for detection
 class MTCNNImageDataGenerator(tf.keras.utils.Sequence):
     def __init__(self, directory, batch_size, target_size=(299, 299), shuffle=True, augment=False):
         self.directory = directory
@@ -100,7 +99,7 @@ train_dir = r'C:\Users\USER\Desktop\Small SIH project\train2'
 validation_dir = r'C:\Users\USER\Desktop\Small SIH project\val2'  
 test_dir = r'C:\Users\USER\Desktop\Small SIH project\test2'  
 
-# Create custom MTCNN-based generators for train, validation, and test datasets
+# Create custom MTCNN-based generators for train, val, and test datasets
 train_generator = MTCNNImageDataGenerator(
     train_dir,
     batch_size=32,
